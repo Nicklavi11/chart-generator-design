@@ -1,0 +1,11 @@
+// {type:usecase}
+// {direction:leftToRight}
+// Use Case Diagram for Chart Generator CLI Utility
+
+// Actor to main use case
+[User]-(Generate chart from user input)
+
+// Extensions and Includes
+(Generate chart from user input)>(Read input data file)
+(Generate chart from user input)>(Build chart model)
+(Generate chart from user input)>(Render image file)

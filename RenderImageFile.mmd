@@ -1,0 +1,22 @@
+---
+config:
+  theme: redux-color
+---
+sequenceDiagram
+    title: Render Image File
+    
+    participant s as Source
+    participant c as controller : ChartGenController
+    participant r as renderer : PDFRenderer
+    
+    activate s
+    activate c
+
+    c->>r: new
+    activate r
+    c->>r: render(mdl, dest)
+    deactivate r
+
+    c-->>s: 
+    deactivate c
+    deactivate s

@@ -1,0 +1,71 @@
+---
+config:
+  theme: redux-color
+---
+
+sequenceDiagram
+    title: Generate Chart from User Input
+
+    participant s as Source
+
+    participant c as controller : ChartGenController
+    
+    participant p as yamlParser : YAMLParser
+    participant d as dataSet : DataSet
+
+    participant b as lineChartBuilder : LineChartBuilder
+    participant m as mdl : ChartModel
+    
+    participant r as pdfRenderer : PDFRenderer
+
+    #
+    #   Read Input Data File
+    #
+
+    activate s
+    s->>c: begin
+
+    activate c
+    c->>p: new YAMLParser
+    
+    activate p
+    c->>p: parse(filePath)
+    p->>d: new
+    activate d
+    #deactivate d
+    
+    p-->>c: dataSet
+    deactivate p
+
+
+    #
+    #   Build Chart Model
+    #
+
+    c->>b:new
+    activate b
+
+    c->>b:buildChart(dataSet)
+    
+    b->>m:new
+    activate m
+    #deactivate m
+    deactivate d
+    
+    b-->>c:mdl
+    deactivate b
+
+    #
+    #   Render Image File
+    #
+
+    c->>r: new
+    activate r
+    c->>r: render(mdl, dest)
+    deactivate r
+    deactivate m
+
+    # Return
+    c-->>s: 
+    deactivate c
+    deactivate s

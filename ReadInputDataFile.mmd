@@ -1,0 +1,31 @@
+---
+config:
+  theme: redux-color
+---
+sequenceDiagram
+    title: Read Input Data File
+
+    participant s as Source
+    participant c as controller : ChartGenController
+    participant p as yamlParser : YAMLParser
+    participant d as dataSet : DataSet
+
+    activate s
+
+    s->>c: begin
+    activate c
+    c->>p: new YAMLParser
+    
+    activate p
+    c->>p: parse(filePath)
+    p->>d: new
+    activate d
+    
+    
+    p-->>c: dataSet
+    deactivate p
+
+    deactivate c
+
+    deactivate d
+    deactivate s

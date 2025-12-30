@@ -1,0 +1,35 @@
+// {type:class}
+[ChartGenController| -args:String［］| +generateChart()]
+
+[<<abstract>> DataParser|| +parse(filePath:String):DataSet ﹛abstract﹜]
+
+[JSONParser|| +parse(filePath:String):DataSet]
+[YAMLParser|| +parse(filePath:String):DataSet]
+
+[DataSet| -records:List<DataPoint>|+getRecords():List<DataPoint>; +isValid():boolean]
+
+
+[<<abstract>>ChartModelBuilder|| +buildChart(data:DataSet):ChartModel﹛abstract﹜]
+[LineChartBuilder|| +buildChart(data:DataSet):ChartModel]
+[ScatterChartBuilder|| +buildChart(data:DataSet):ChartModel]
+
+[LineChartBuilder]-^[<<abstract>>ChartModelBuilder]
+[ScatterChartBuilder]-^[<<abstract>>ChartModelBuilder]
+[ChartModel| -axes:String; -labels:Map<String,String>| +getAxes():String; +getLabels():Map<String,String>]
+
+[<<abstract>> ChartRenderer|| +render(chartModel:ChartModel dest:String) ﹛abstract﹜]
+[SVGRenderer|| +render(chartModel:ChartModel dest:String)]
+[PDFRenderer|| +render(chartModel:ChartModel dest:String)]
+
+[ChartGenController]-.->[<<abstract>> DataParser]
+[ChartGenController]-.->[<<abstract>> ChartRenderer]
+[ChartGenController]-.->[<<abstract>>ChartModelBuilder]
+
+[<<abstract>> DataParser]-.->[DataSet]
+[<<abstract>> ChartRenderer]-.->[ChartModel]
+
+[JSONParser]-^[<<abstract>> DataParser]
+[YAMLParser]-^[<<abstract>> DataParser]
+
+[SVGRenderer]-^[<<abstract>> ChartRenderer]
+[PDFRenderer]-^[<<abstract>> ChartRenderer]

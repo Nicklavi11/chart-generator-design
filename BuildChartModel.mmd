@@ -1,0 +1,27 @@
+---
+config:
+  theme: redux-color
+---
+sequenceDiagram
+    title: Build Chart Model
+
+    participant c as controller : ChartGenController
+    participant b as lineChartBuilder : LineChartBuilder
+    participant m as mdl : ChartModel
+
+    activate c
+
+    c->>b:new
+    activate b
+
+    c->>b:buildChart(dataSet)
+    
+    b->>m:new
+    activate m
+    
+    
+    b-->>c:mdl
+    deactivate b
+
+    deactivate m
+    deactivate c
