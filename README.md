@@ -1,4 +1,4 @@
-# Chart Generator – Software Design Case Study
+# Chart Generator – Software Design
 
 This project is a software design case study for a command-line chart generation system.
 The focus is on requirements analysis, UML modeling, and design improvements using
